@@ -28,7 +28,9 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
+        tasks: [ 
+          //'jshint'
+        ],
         options: {
           livereload: true
         }
@@ -141,11 +143,37 @@ module.exports = function (grunt) {
       }
     },
 
+    requirejs: {
+      dist: {
+        // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+        options: {
+          baseUrl: '<%= config.appLocation %>/scripts',
+          optimize: 'none',
+          paths: {
+              'templates': '../../.tmp/scripts/templates',
+              'jquery': '../../' + config.appLocation + '/lib/jquery/dist/jquery',
+              'underscore': '../../' + config.appLocation + '/lib/underscore/underscore',
+              'backbone': '../../' + config.appLocation + '/lib/backbone/backbone'
+          },
+          // TODO: Figure out how to make sourcemaps work with grunt-usemin
+          // https://github.com/yeoman/grunt-usemin/issues/30
+          //generateSourceMaps: true,
+          // required to support SourceMaps
+          // http://requirejs.org/docs/errors.html#sourcemapcomments
+          preserveLicenseComments: false,
+          useStrict: true,
+          wrap: true
+          //uglify2: {} // https://github.com/mishoo/UglifyJS2
+        }
+      }
+    },
+
+
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
       options: {
         sourceMap: true,
-        includePaths: ['bower_components']
+        includePaths: ['bower_components', 'bower_components/foundation/scss']
         },
       dist: {
         files: [{
@@ -368,11 +396,6 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run([target ? ('serve:' + target) : 'serve']);
-  });
-
   grunt.registerTask('test', function (target) {
     if (target !== 'watch') {
       grunt.task.run([
@@ -394,6 +417,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
+    'requirejs',
     'concat',
     'cssmin',
     'uglify',
