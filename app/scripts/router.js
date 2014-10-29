@@ -1,29 +1,33 @@
 // Filename: router.js
 
-var demoData = {
-  "id": 1337
-};
-
 define([
   'jquery',
   'backbone',
   'collections/fruitsCollection',
-  'views/itemList',
-], function ($, Backbone, FruitsModel, ItemList) {
+  'views/fruitList',
+  'views/fruitDetail',
+], function ($, Backbone, fruitsCollection, FruitListView, FruitDetailView) {
 
   var AppRouter = Backbone.Router.extend({
     routes: {
-      'item/:id': 'showModeView',
+      'fruit/:id': 'showFruitDetail',
       // TODO: 404 route
       '/*': 'showItemsList' // Add a blank index view at some point.
     },
     // Route: Items List
     showItemsList: function () {
       console.log('Route to Item List');
-      var itemsModel = new FruitsModel();
-      var itemListView = new ItemList({model: itemsModel});
-      itemListView.render();
+      var fruitListView = new FruitListView({collection: fruitsCollection});
+      console.log(fruitsCollection);
+      fruitListView.render();
 
+    },
+
+    showFruitDetail: function (id) {
+      console.log('Route to Fruit Detail');
+      console.log(fruitsCollection.models[id]);
+      var fruitDetailView = new FruitDetailView({model: fruitsCollection.models[id]});
+      fruitDetailView.render();
     }
   });
 

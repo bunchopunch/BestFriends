@@ -5,23 +5,21 @@ define([
   'underscore',
   'backbone',
   'text',
-  'text!templates/itemList.html',
-  'models/appleModel',
-  'models/bananaModel',
-  'models/orangeModel',
-  'models/otherModel',
-  ], function ($, _, Backbone, text, templateHtml, AppleModel, BananaModel, OrangeModel, OtherModel) {
+//  'text!templates/itemList.html',
+  'models/fruitModel',
+  ], function ($, _, Backbone, text, FruitModel) {
 
     var FruitsCollection = Backbone.Collection.extend({
-      model: Fruit
+      model: FruitModel,
+      url: 'localhost/fruitkeeper'
     });
 
-    var fruit1 = new AppleModel();
-    var fruit2 = new BananaModel();
-    var fruit3 = new OrangeModel();
-    var fruit4 = new OtherModel();
+    fruitsCollection = new FruitsCollection();
 
-    fruitsBasket = new FruitsCollection(fruit1, fruit2, fruit3, fruit4);
+    fruitsCollection.add({name: 'Orange', description: 'Did you know that oranges are orange?'});
+    fruitsCollection.add({name: 'Apple', description: 'Yum! Apples are made of apple.'});
+    fruitsCollection.add({name: 'Banana', description: 'Orange who? WAIT... what?'});
+    fruitsCollection.add({name: 'Some other common fruit', description: 'You know... those ones.'});
 
-    return fruitsBasket;
+    return fruitsCollection;
   });

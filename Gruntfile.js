@@ -327,9 +327,9 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // concat: {
-    //   dist: {}
-    // },
+     concat: {
+       dist: {}
+     },             // Need to move back to usemin blocks
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -417,7 +417,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'requirejs',
+//    'requirejs',
     'concat',
     'cssmin',
     'uglify',
