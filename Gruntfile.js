@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['<%= config.app %>/scripts/**/*.js', '<%= config.app %>/scripts/templates/**/*.html'],
         tasks: [ 
           //'jshint'
         ],
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/images/{,*/}*'
+          '<%= config.app %>/**/*.html',
+          '.tmp/styles/**/*.css',
+          '<%= config.app %>/images/**/*'
         ]
       }
     },
