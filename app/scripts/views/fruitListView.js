@@ -13,8 +13,7 @@ define([
 
     render: function(){
       this.collection.each(function(fruit){
-        fruitListItemView = new FruitListItemView({model: fruit});
-        this.$el.append(fruitListItemView.render().el);
+        this.$el.append(new FruitListItemView({model: fruit}).render().el);
       }, this);
       return this //probably always want to return this to help with chaining.
     },

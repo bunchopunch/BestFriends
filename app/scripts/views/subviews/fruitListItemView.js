@@ -16,6 +16,7 @@ define([
     },
 
     initialize: function () {
+      this.modelIndex = this.model.collection.indexOf(this.model);
     },
 
   });
