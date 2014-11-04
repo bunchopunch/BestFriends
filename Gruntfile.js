@@ -11,7 +11,9 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    servePort: 9000,
+    testPort: 9001
   };
 
   // Define the configuration for all the tasks
@@ -27,7 +29,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}**.js'],
+        files: ['<%= config.app %>/scripts/{,*/}*.js'],
         tasks: [ 
           //'jshint'
         ],
@@ -65,7 +67,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: '<%= config.servePort %>',
         open: true,
         livereload: 35729,
         // Change this to '0.0.0.0' to access the server from outside
@@ -85,7 +87,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           open: false,
-          port: 9001,
+          port: '<%= config.testPort %>',
           middleware: function(connect) {
             return [
               connect.static('.tmp'),
