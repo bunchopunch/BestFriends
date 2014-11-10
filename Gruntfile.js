@@ -10,8 +10,8 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    app: 'app',
-    dist: 'dist',
+    appLocation: 'app',
+    distLocation: 'dist',
     servePort: 9000,
     testPort: 9001
   };
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= config.app %>/scripts/**/*.js', '<%= config.app %>/scripts/templates/**/*.html'],
+        files: ['<%= config.appLocation %>/scripts/**/*.js', '<%= config.appLocation %>/scripts/templates/**/*.html'],
         tasks: [ 
           //'jshint'
         ],
@@ -45,11 +45,11 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       sass: {
-        files: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= config.appLocation %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['sass:server', 'autoprefixer']
       },
       styles: {
-        files: ['<%= config.app %>/styles/{,*/}*.css'],
+        files: ['<%= config.appLocation %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
       },
       livereload: {
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         },
         files: [
-          '<%= config.app %>/**/*.html',
+          '<%= config.appLocation %>/**/*.html',
           '.tmp/styles/**/*.css',
-          '<%= config.app %>/images/**/*'
+          '<%= config.appLocation %>/images/**/*'
         ]
       }
     },
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
             return [
               connect.static('.tmp'),
               connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app)
+              connect.static(config.appLocation)
             ];
           }
         }
@@ -93,14 +93,14 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use('/bower_components', connect.static('./bower_components')),
-              connect.static(config.app)
+              connect.static(config.appLocation)
             ];
           }
         }
       },
       dist: {
         options: {
-          base: '<%= config.dist %>',
+          base: '<%= config.distLocation %>',
           livereload: false
         }
       }
@@ -113,8 +113,8 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= config.dist %>/*',
-            '!<%= config.dist %>/.git*'
+            '<%= config.distLocation %>/*',
+            '!<%= config.distLocation %>/.git*'
           ]
         }]
       },
@@ -129,8 +129,8 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= config.app %>/scripts/{,*/}*.js',
-        '!<%= config.app %>/scripts/vendor/*',
+        '<%= config.appLocation %>/scripts/{,*/}*.js',
+        '!<%= config.appLocation %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
       ]
     },
@@ -146,16 +146,16 @@ module.exports = function (grunt) {
     },
 
     requirejs: {
-      dist: {
+//      dist: {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options: {
-          baseUrl: '<%= config.appLocation %>/scripts',
+          baseUrl: '<%= config.appLocationLocation %>/scripts',
           optimize: 'none',
           paths: {
               'templates': '../../.tmp/scripts/templates',
-              'jquery': '../../' + config.appLocation + '/lib/jquery/dist/jquery',
-              'underscore': '../../' + config.appLocation + '/lib/underscore/underscore',
-              'backbone': '../../' + config.appLocation + '/lib/backbone/backbone'
+              'jquery': '../../' + config.appLocationLocation + '/lib/jquery/dist/jquery',
+              'underscore': '../../' + config.appLocationLocation + '/lib/underscore/underscore',
+              'backbone': '../../' + config.appLocationLocation + '/lib/backbone/backbone'
           },
           // TODO: Figure out how to make sourcemaps work with grunt-usemin
           // https://github.com/yeoman/grunt-usemin/issues/30
@@ -164,9 +164,11 @@ module.exports = function (grunt) {
           // http://requirejs.org/docs/errors.html#sourcemapcomments
           preserveLicenseComments: false,
           useStrict: true,
-          wrap: true
+          wrap: true,
+          dir: '<%= config.distLocationLocation %>/scripts'
+//          out: '<%= config.distLocationLocation %>/scripts'
           //uglify2: {} // https://github.com/mishoo/UglifyJS2
-        }
+//        }
       }
     },
 
@@ -180,7 +182,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.appLocation %>/styles',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
@@ -189,7 +191,7 @@ module.exports = function (grunt) {
       server: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/styles',
+          cwd: '<%= config.appLocation %>/styles',
           src: ['*.{scss,sass}'],
           dest: '.tmp/styles',
           ext: '.css'
@@ -216,10 +218,10 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html']
+        src: ['<%= config.appLocation %>/index.html']
       },
       sass: {
-        src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+        src: ['<%= config.appLocation %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
     },
@@ -229,11 +231,11 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= config.dist %>/scripts/**/*.js',
-            '<%= config.dist %>/styles/**/*.css',
-            '<%= config.dist %>/images/**/*.*',
-            '<%= config.dist %>/styles/fonts/**.*',
-            '<%= config.dist %>/*.{ico,png}'
+            '<%= config.distLocation %>/scripts/**/*.js',
+            '<%= config.distLocation %>/styles/**/*.css',
+            '<%= config.distLocation %>/images/**/*.*',
+            '<%= config.distLocation %>/styles/fonts/**.*',
+            '<%= config.distLocation %>/*.{ico,png}'
           ]
         }
       }
@@ -244,22 +246,22 @@ module.exports = function (grunt) {
     // additional tasks can operate on them
     useminPrepare: {
       options: {
-        dest: '<%= config.dist %>'
+        dest: '<%= config.distLocation %>'
       },
-      html: '<%= config.app %>/index.html'
+      html: '<%= config.appLocation %>/index.html'
     },
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       options: {
         assetsDirs: [
-          '<%= config.dist %>',
-          '<%= config.dist %>/images',
-          '<%= config.dist %>/styles'
+          '<%= config.distLocation %>',
+          '<%= config.distLocation %>/images',
+          '<%= config.distLocation %>/styles'
         ]
       },
-      html: ['<%= config.dist %>/{,*/}*.html'],
-      css: ['<%= config.dist %>/styles/{,*/}*.css']
+      html: ['<%= config.distLocation %>/{,*/}*.html'],
+      css: ['<%= config.distLocation %>/styles/{,*/}*.css']
     },
 
     // The following *-min tasks produce minified files in the dist folder
@@ -267,9 +269,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/images',
+          cwd: '<%= config.appLocation %>/images',
           src: '{,*/}*.{gif,jpeg,jpg,png}',
-          dest: '<%= config.dist %>/images'
+          dest: '<%= config.distLocation %>/images'
         }]
       }
     },
@@ -278,9 +280,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= config.app %>/images',
+          cwd: '<%= config.appLocation %>/images',
           src: '{,*/}*.svg',
-          dest: '<%= config.dist %>/images'
+          dest: '<%= config.distLocation %>/images'
         }]
       }
     },
@@ -300,9 +302,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= config.dist %>',
+          cwd: '<%= config.distLocation %>',
           src: '{,*/}*.html',
-          dest: '<%= config.dist %>'
+          dest: '<%= config.distLocation %>'
         }]
       }
     },
@@ -313,9 +315,9 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%= config.dist %>/styles/main.css': [
+    //       '<%= config.distLocation %>/styles/main.css': [
     //         '.tmp/styles/{,*/}*.css',
-    //         '<%= config.app %>/styles/{,*/}*.css'
+    //         '<%= config.appLocation %>/styles/{,*/}*.css'
     //       ]
     //     }
     //   }
@@ -323,8 +325,8 @@ module.exports = function (grunt) {
     // uglify: {
     //   dist: {
     //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
+    //       '<%= config.distLocation %>/scripts/scripts.js': [
+    //         '<%= config.distLocation %>/scripts/scripts.js'
     //       ]
     //     }
     //   }
@@ -339,8 +341,8 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= config.app %>',
-          dest: '<%= config.dist %>',
+          cwd: '<%= config.appLocation %>',
+          dest: '<%= config.distLocation %>',
           src: [
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
@@ -349,13 +351,13 @@ module.exports = function (grunt) {
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',
-          dest: '<%= config.dist %>/.htaccess'
+          dest: '<%= config.distLocation %>/.htaccess'
         }]
       },
       styles: {
         expand: true,
         dot: true,
-        cwd: '<%= config.app %>/styles',
+        cwd: '<%= config.appLocation %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       }
@@ -419,7 +421,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-//    'requirejs',
+    'requirejs',
     'concat',
     'cssmin',
     'uglify',

@@ -26,7 +26,7 @@
     "load-grunt-tasks": "^0.4.0",
     "time-grunt": "^0.4.0",
     "grunt-bower-requirejs": "~0.7.0",
-    "grunt-requirejs": "~0.4.0"
+    "grunt-contrib-requirejs": "~0.4.0"
   },
   "engines": {
     "node": ">=0.10.0"
