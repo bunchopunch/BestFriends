@@ -20,12 +20,12 @@ define([
       console.log("Fruit Detail Init");
     },
 
-//    onClose: function() {
-//      _(this.childViews).each(function(view) {
-//        console.log("GC!");
-//        view.close();
-//      });
-//    },
+    onClose: function() {
+      _(this.childViews).each(function(view) {
+        console.log("GC!");
+        view.close();
+      });
+    },
 
     // VIEW EVENTS =================================================
 
