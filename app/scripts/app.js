@@ -10,6 +10,14 @@ define([
   var initialize = function(){
     $(document).foundation();
     console.log('App was fired');
+
+//    Backbone.View.prototype.close = function() {
+//        if (this.onClose) {
+//            this.onClose();
+//        }
+//        this.remove();
+//    };
+
     Router.initialize();
   }
 

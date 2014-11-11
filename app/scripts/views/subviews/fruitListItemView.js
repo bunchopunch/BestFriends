@@ -7,7 +7,9 @@ define([
 ], function ($, _, Backbone, text, FruitListItemTemplate) {
 
   var ListView = Backbone.View.extend({
+    el: document.getElementById('fruits'),
     template: _.template(FruitListItemTemplate, null, {variable: 'data'}),
+    tagName: 'li',
 
     render: function(){
       var attributes = this.model.toJSON();

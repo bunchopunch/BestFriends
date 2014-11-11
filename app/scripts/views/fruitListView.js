@@ -12,12 +12,16 @@ define([
     template: _.template(FruitListTemplate, null, {variable: 'data'}),
 
     render: function(){ 
+      this.$el.html(FruitListTemplate);
+
       var listFragment = document.createDocumentFragment();
       this.collection.each(function(fruit){
         listFragment.appendChild(new FruitListItemView({model: fruit}).render().el);
       }, this);
-      this.$el.html(listFragment);
-      return this //probably always want to return this to help with chaining.
+
+      this.$('#fruits').html(listFragment); // TODO: Maybe move to a CID subview system?
+
+      return this // Always want to return this to help with chaining.
     },
 
     initialize: function () {
@@ -32,6 +36,7 @@ define([
 
     toggleCollapse: function (e) {
       console.log('toggleCollapse View event fired!');
+      $('#fruits').toggle();
     }
 
   });
