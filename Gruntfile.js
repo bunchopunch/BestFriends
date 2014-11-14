@@ -443,7 +443,7 @@ module.exports = function (grunt) {
     'requirejs',
     'concat',
     'cssmin',
-    'uglify',
+//    'uglify',
     'copy:dist',
     'rev',
     'usemin',
