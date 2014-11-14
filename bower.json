@@ -9,6 +9,7 @@
     "requirejs": "~2.1.5",
     "requirejs-text": "~2.0.5",
     "text": "2.0.12",
-    "foundation": "zurb/bower-foundation"
+    "foundation": "zurb/bower-foundation",
+    "almond": "~0.3.0"
   }
 }

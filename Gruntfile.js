@@ -146,29 +146,47 @@ module.exports = function (grunt) {
     },
 
     requirejs: {
+
+      compile: {
+
+        options: {
+          almond: true,
+          name: '../../bower_components/almond/almond',
+          baseUrl: "<%= config.appLocation %>/scripts",
+//          optimize: "uglify",
+          include: ["main"],
+          out: "<%= config.distLocation %>/scripts/main.js",
+          wrap: true,
+          mainConfigFile: '<%= config.appLocation %>/require-config.js',
+//          paths: {
+//              jquery: '../../bower_components/jquery/dist/jquery',
+//          },
+
+// OLDOLDOLDOLD
 //      dist: {
         // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-        options: {
-          baseUrl: '<%= config.appLocationLocation %>/scripts',
-          optimize: 'none',
-          paths: {
-              'templates': '../../.tmp/scripts/templates',
-              'jquery': '../../' + config.appLocationLocation + '/lib/jquery/dist/jquery',
-              'underscore': '../../' + config.appLocationLocation + '/lib/underscore/underscore',
-              'backbone': '../../' + config.appLocationLocation + '/lib/backbone/backbone'
-          },
-          // TODO: Figure out how to make sourcemaps work with grunt-usemin
-          // https://github.com/yeoman/grunt-usemin/issues/30
-          //generateSourceMaps: true,
-          // required to support SourceMaps
-          // http://requirejs.org/docs/errors.html#sourcemapcomments
-          preserveLicenseComments: false,
-          useStrict: true,
-          wrap: true,
-          dir: '<%= config.distLocationLocation %>/scripts'
+  //            options: {
+  //              baseUrl: '<%= config.appLocationLocation %>/scripts',
+  //              optimize: 'none',
+  //              paths: {
+  //                  'templates': '../../.tmp/scripts/templates',
+  //                  'jquery': '../../' + config.appLocationLocation + '/lib/jquery/dist/jquery',
+  //                  'underscore': '../../' + config.appLocationLocation + '/lib/underscore/underscore',
+  //                  'backbone': '../../' + config.appLocationLocation + '/lib/backbone/backbone'
+  //              },
+  //              // TODO: Figure out how to make sourcemaps work with grunt-usemin
+  //              // https://github.com/yeoman/grunt-usemin/issues/30
+  //              //generateSourceMaps: true,
+  //              // required to support SourceMaps
+  //              // http://requirejs.org/docs/errors.html#sourcemapcomments
+  //              preserveLicenseComments: false,
+  //              useStrict: true,
+  //              wrap: true,
+  //              dir: '<%= config.distLocationLocation %>/scripts'
 //          out: '<%= config.distLocationLocation %>/scripts'
           //uglify2: {} // https://github.com/mishoo/UglifyJS2
 //        }
+        }
       }
     },
 
