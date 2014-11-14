@@ -150,10 +150,11 @@ module.exports = function (grunt) {
       compile: {
 
         options: {
+          logLevel: 2,
           almond: true,
           name: '../../bower_components/almond/almond',
           baseUrl: "<%= config.appLocation %>/scripts",
-//          optimize: "uglify",
+          optimize: "uglify",
           include: ["main"],
           out: "<%= config.distLocation %>/scripts/main.js",
           wrap: true,
@@ -410,7 +411,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
+//      'wiredep',
       'concurrent:server',
       'autoprefixer',
       'connect:livereload',
@@ -435,7 +436,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
+//    'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

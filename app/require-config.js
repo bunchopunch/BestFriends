@@ -15,7 +15,26 @@ require.config({
    },
  
    shim: {
-
+     underscore: {
+       exports: '_'
+     },
+     backbone: {
+       deps: [
+         'underscore',
+         'jquery'
+       ],
+       exports: 'Backbone'
+     },
+     foundation: {
+       deps: [
+         'jquery',
+         'modernizr'
+       ],
+       exports: 'Foundation'
+     },
+     modernizr: {
+       exports: 'Modernizr'
+     },
    },
  
 });
